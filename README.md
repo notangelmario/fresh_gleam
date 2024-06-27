@@ -27,6 +27,7 @@ Gleam only supports files inside of a `src/` folder, so you will have to move yo
 name = "main"
 # Can be any name but remember to change
 # the alias in the deno.json file as explained below
+# and pass the name to the plugin
 version = "0.1.0"
 target = "javascript"
 
@@ -35,10 +36,16 @@ typescript_declarations = true # Needed if you want to use TypeScript
 runtime = "deno"
 ```
 
-2. Add `fresh-gleam` to plugins by adding it from [JSR](https://jsr.io)
+2. Add `fresh-gleam` to plugins.
 
-```bash
-$ deno add @notangelmario/fresh-gleam
+```json
+// deno.json
+{
+	"imports": {
+		"fresh-gleam": "https://deno.land/x/fresh-gleam@0.1.0/mod.ts"
+		// Other imports
+	}
+}
 ```
 
 ```typescript
@@ -50,7 +57,7 @@ import { gleamPlugin } from "@notangelmario/fresh-gleam";
 
 export default defineConfig({
 	plugins: [
-		gleamPlugin({
+		gleamPlugin(Deno.cwd(), {
 			// Optional, add Gleam project name. Default to "main"
 			gleamProjectName: "main",
 		}),
@@ -62,15 +69,14 @@ export default defineConfig({
 
 ```json
 // deno.json
-...
-  "imports": {
-	"$gleam/": "./build/dev/javascript/main/",
-    "fresh-gleam": "https://deno.land/x/fresh-gleam@0.1.0/mod.ts",
-	...
-  },
-  ...
-  "exclude": ["./build/*"],
-...
+{
+	"imports": {
+		"$gleam/": "./build/dev/javascript/main/",
+		"fresh-gleam": "https://deno.land/x/fresh-gleam@0.1.0/mod.ts"
+		// Other imports
+	},
+	"exclude": ["./build/*"]
+}
 ```
 
 4. Run `gleam build` to compile the Gleam files. You will need to run this command when cloning the project or when you delete the `build/` folder.
