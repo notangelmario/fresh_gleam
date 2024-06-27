@@ -30,6 +30,7 @@ interface Params {
  * @returns Plugin
  */
 export function gleamPlugin(basePath: string, props?: Params) {
+	basePath = basePath.substring(0, -4);
 	const gleamProjectName = props?.gleamProjectName || "main";
 
 	return {
