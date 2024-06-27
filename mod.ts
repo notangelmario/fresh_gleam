@@ -11,8 +11,8 @@ const runGleamCompile = () => {
 	gleamBuild.spawn();
 }
 
-const getGleamFilePath = (basePath: string, gleamProjectName: string, gleamFile: string) => {
-	return join(basePath, `build/dev/javascript/${gleamProjectName}/routes/${gleamFile}.mjs`);
+const getGleamFilePath = (gleamProjectName: string, gleamFile: string) => {
+	return join(Deno.cwd(), `build/dev/javascript/${gleamProjectName}/routes/${gleamFile}.mjs`);
 }
 
 interface Params {
@@ -29,8 +29,7 @@ interface Params {
  * @param props The plugin properties.
  * @returns Plugin
  */
-export function gleamPlugin(basePath: string, props?: Params) {
-	basePath = basePath.substring(0, -4);
+export function gleamPlugin(props?: Params) {
 	const gleamProjectName = props?.gleamProjectName || "main";
 
 	return {
@@ -44,7 +43,7 @@ export function gleamPlugin(basePath: string, props?: Params) {
 				handler: async (req: Request, ctx: FreshContext) => {
 					const gleamFile = ctx.params.gleamFile;
 
-					const gleamFilePath = getGleamFilePath(basePath, gleamProjectName, gleamFile);
+					const gleamFilePath = getGleamFilePath(gleamProjectName, gleamFile);
 
 					const fileExists = await exists(gleamFilePath, { isFile: true });
 
