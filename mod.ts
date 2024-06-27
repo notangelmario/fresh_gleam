@@ -11,8 +11,8 @@ const runGleamCompile = () => {
 	gleamBuild.spawn();
 }
 
-const getGleamFilePath = (gleamProjectName: string, gleamFile: string) => {
-	return join(Deno.cwd(), `build/dev/javascript/${gleamProjectName}/routes/${gleamFile}.mjs`);
+const getGleamFilePath = (basePath: string, gleamProjectName: string, gleamFile: string) => {
+	return join(basePath, `build/dev/javascript/${gleamProjectName}/routes/${gleamFile}.mjs`);
 }
 
 interface Params {
@@ -25,10 +25,11 @@ interface Params {
 
 /**
  * A Fresh plugin to handle Gleam files.
+ * @param basePath The base path of the project. Pass `import.meta.dirname`.
  * @param props The plugin properties.
  * @returns Plugin
  */
-export function gleamPlugin(props?: Params) {
+export function gleamPlugin(basePath: string, props?: Params) {
 	const gleamProjectName = props?.gleamProjectName || "main";
 
 	return {
@@ -42,7 +43,7 @@ export function gleamPlugin(props?: Params) {
 				handler: async (req: Request, ctx: FreshContext) => {
 					const gleamFile = ctx.params.gleamFile;
 
-					const gleamFilePath = getGleamFilePath(gleamProjectName, gleamFile);
+					const gleamFilePath = getGleamFilePath(basePath, gleamProjectName, gleamFile);
 
 					const fileExists = await exists(gleamFilePath, { isFile: true });
 
@@ -50,7 +51,7 @@ export function gleamPlugin(props?: Params) {
 						return ctx.renderNotFound();
 					}
 
-					const { handler } = await import(gleamFilePath.replace(/\.mjs$/, ""));
+					const { handler } = await import(gleamFilePath);
 
 					if (typeof handler !== "function") {
 						return ctx.renderNotFound();
