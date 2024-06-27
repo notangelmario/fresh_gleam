@@ -53,7 +53,7 @@ export function gleamPlugin(basePath: string, props?: Params) {
 						return ctx.renderNotFound();
 					}
 
-					const { handler } = await import(gleamFilePath);
+					const { handler } = await import("file://" + gleamFilePath);
 
 					if (typeof handler !== "function") {
 						return ctx.renderNotFound();
