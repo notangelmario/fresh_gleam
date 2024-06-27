@@ -1,4 +1,4 @@
-# fresh-gleam
+# fresh_gleam
 
 A plugin to use [Gleam](https://gleam.run) inside of [Fresh](https://fresh.deno.dev).
 
@@ -36,13 +36,13 @@ typescript_declarations = true # Needed if you want to use TypeScript
 runtime = "deno"
 ```
 
-2. Add `fresh-gleam` to plugins.
+2. Add `fresh_gleam` to plugins.
 
 ```json
 // deno.json
 {
 	"imports": {
-		"fresh-gleam": "https://deno.land/x/fresh-gleam@0.1.0/mod.ts"
+		"fresh_gleam": "https://deno.land/x/fresh_gleam@0.1.0/mod.ts"
 		// Other imports
 	}
 }
@@ -51,9 +51,9 @@ runtime = "deno"
 ```typescript
 // fresh.config.ts
 import { defineConfig } from "$fresh/server.ts";
-import { gleamPlugin } from "@notangelmario/fresh-gleam";
+import { gleamPlugin } from "@notangelmario/fresh_gleam";
 // Or add it directly from the URL
-// import { gleamPlugin } from "jsr:@notangelmario/fresh-gleam@0.1.0";
+// import { gleamPlugin } from "jsr:@notangelmario/fresh_gleam@0.1.0";
 
 export default defineConfig({
 	plugins: [
@@ -72,7 +72,7 @@ export default defineConfig({
 {
 	"imports": {
 		"$gleam/": "./build/dev/javascript/main/",
-		"fresh-gleam": "https://deno.land/x/fresh-gleam@0.1.0/mod.ts"
+		"fresh_gleam": "https://deno.land/x/fresh_gleam@0.1.0/mod.ts"
 		// Other imports
 	},
 	"exclude": ["./build/*"]
