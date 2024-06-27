@@ -45,8 +45,6 @@ export function gleamPlugin(basePath: string, props?: Params) {
 
 					const gleamFilePath = getGleamFilePath(basePath, gleamProjectName, gleamFile);
 
-					console.log(gleamFilePath);
-
 					const fileExists = await exists(gleamFilePath, { isFile: true });
 
 					if (!fileExists) {
