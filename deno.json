@@ -1,0 +1,12 @@
+{
+	"name": "@notangelmario/fresh-gleam",
+	"version": "0.1.0",
+	"exports": "./mod.ts",
+	"tasks": {
+		"dev": "deno run --watch mod.ts"
+	},
+	"imports": {
+		"$fresh/": "https://deno.land/x/fresh@1.6.8/",
+		"$std/": "https://deno.land/std@0.216.0/"
+	}
+}
