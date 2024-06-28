@@ -1,0 +1,8 @@
+name = "main"
+version = "0.1.0"
+target = "javascript"
+dependencies = { conversation = ">= 1.4.3 and < 2.0.0", gleam_javascript = ">= 0.11.0 and < 1.0.0", gleam_http = ">= 3.6.0 and < 4.0.0", gleam_stdlib = ">= 0.38.0 and < 1.0.0"}
+
+[javascript]
+typescript_declarations = true
+runtime = "deno"

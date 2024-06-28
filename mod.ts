@@ -2,18 +2,25 @@ import type { FreshContext, Plugin } from "$fresh/server.ts";
 import { exists } from "$std/fs/exists.ts";
 import { join } from "$std/path/join.ts";
 
-const runGleamCompile = () => {
+export const runGleamCompile = (cwd?: string) => {
 	const gleamBuild = new Deno.Command("gleam", {
 		args: ["build", "--target=javascript"],
-		cwd: Deno.cwd(),
+		cwd: cwd ?? Deno.cwd(),
 	});
 
-	gleamBuild.spawn();
-}
+	return gleamBuild.spawn();
+};
 
-const getGleamFilePath = (basePath: string, gleamProjectName: string, gleamFile: string) => {
-	return join(basePath, `build/dev/javascript/${gleamProjectName}/routes/${gleamFile}.mjs`);
-}
+export const getGleamFilePathFromPath = (
+	basePath: string,
+	gleamProjectName: string,
+	route: string,
+) => {
+	return join(
+		basePath,
+		`build/dev/javascript/${gleamProjectName}/routes/${route}.mjs`,
+	);
+};
 
 interface Params {
 	/**
@@ -35,7 +42,8 @@ export function gleamPlugin(basePath: string, props?: Params) {
 	return {
 		name: "gleam_plugin",
 		configResolved: () => {
-			runGleamCompile()
+			const process = runGleamCompile();
+			Deno.kill(process.pid, "SIGINT");
 		},
 		routes: [
 			{
@@ -43,9 +51,15 @@ export function gleamPlugin(basePath: string, props?: Params) {
 				handler: async (req: Request, ctx: FreshContext) => {
 					const gleamFile = ctx.params.gleamFile;
 
-					const gleamFilePath = getGleamFilePath(basePath, gleamProjectName, gleamFile);
+					const gleamFilePath = getGleamFilePathFromPath(
+						basePath,
+						gleamProjectName,
+						gleamFile,
+					);
 
-					const fileExists = await exists(gleamFilePath, { isFile: true });
+					const fileExists = await exists(gleamFilePath, {
+						isFile: true,
+					});
 
 					if (!fileExists) {
 						return ctx.renderNotFound();
@@ -61,5 +75,5 @@ export function gleamPlugin(basePath: string, props?: Params) {
 				},
 			},
 		],
-	} as Plugin
+	} as Plugin;
 }

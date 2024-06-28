@@ -1,11 +1,17 @@
 {
+	"lock": false,
 	"tasks": {
-		"dev": "deno run --watch mod.ts"
+		"test": "deno test --allow-read --allow-run"
 	},
 	"imports": {
 		"$fresh/": "https://deno.land/x/fresh@1.6.8/",
 		"$std/": "https://deno.land/std@0.216.0/",
+		"$gleam/": "./test/build/dev/javascript/main/",
 		"preact": "https://esm.sh/preact@10.19.6",
 		"preact/": "https://esm.sh/preact@10.19.6/"
+	},
+	"compilerOptions": {
+		"jsx": "react-jsx",
+		"jsxImportSource": "preact"
 	}
 }
