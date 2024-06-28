@@ -13,7 +13,6 @@ A plugin to use [Gleam](https://gleam.run) inside of [Fresh](https://fresh.deno.
 
 ### Roadmap
 
--   [ ] Add tests
 -   [ ] Allow usage of pure Gleam Request and Response objects
 -   [ ] Add support for `FreshContext` in Gleam files
 
