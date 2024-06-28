@@ -56,7 +56,8 @@ import { gleamPlugin } from "@notangelmario/fresh_gleam";
 
 export default defineConfig({
 	plugins: [
-		gleamPlugin(Deno.cwd(), {
+		// We use await because we want to wait for the gleam build to finish
+		await gleamPlugin(Deno.cwd(), {
 			// Optional, add Gleam project name. Default to "main"
 			gleamProjectName: "main",
 		}),
@@ -78,13 +79,7 @@ export default defineConfig({
 }
 ```
 
-4. Run `gleam build` to compile the Gleam files. You will need to run this command when cloning the project or when you delete the `build/` folder.
-
-```bash
-$ gleam build
-```
-
-5. Run Fresh
+4. Run Fresh
 
 ```bash
 $ deno task start

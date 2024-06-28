@@ -36,15 +36,14 @@ interface Params {
  * @param props The plugin properties.
  * @returns Plugin
  */
-export function gleamPlugin(basePath: string, props?: Params) {
+export async function gleamPlugin(basePath: string, props?: Params) {
 	const gleamProjectName = props?.gleamProjectName || "main";
+
+	const process = runGleamCompile(basePath);
+	await process.status;
 
 	return {
 		name: "gleam_plugin",
-		configResolved: () => {
-			const process = runGleamCompile();
-			Deno.kill(process.pid, "SIGINT");
-		},
 		routes: [
 			{
 				path: "/[...gleamFile]",
