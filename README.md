@@ -41,7 +41,7 @@ runtime = "deno"
 // deno.json
 {
 	"imports": {
-		"fresh_gleam": "https://deno.land/x/fresh_gleam@v0.1.1/mod.ts"
+		"fresh_gleam": "https://deno.land/x/fresh_gleam@v0.1.2/mod.ts"
 		// Other imports
 	}
 }
@@ -52,7 +52,7 @@ runtime = "deno"
 import { defineConfig } from "$fresh/server.ts";
 import { gleamPlugin } from "@notangelmario/fresh_gleam";
 // Or add it directly from the URL
-// import { gleamPlugin } from "jsr:@notangelmario/fresh_gleam@v0.1.1";
+// import { gleamPlugin } from "jsr:@notangelmario/fresh_gleam@v0.1.2";
 
 export default defineConfig({
 	plugins: [
@@ -72,7 +72,6 @@ export default defineConfig({
 {
 	"imports": {
 		"$gleam/": "./build/dev/javascript/main/",
-		"fresh_gleam": "https://deno.land/x/fresh_gleam@v0.1.1/mod.ts"
 		// Other imports
 	},
 	"exclude": ["./build/*"]
@@ -91,7 +90,15 @@ And that's it! Your Gleam files will be compiled an can be imported using the al
 
 You can import your Gleam files using the alias `$gleam/`:
 
+```rust
+// src/main.gleam
+pub fn hello_from_gleam() -> String {
+	"Hello from Gleam!"
+}
+```
+
 ```typescript
+// src/routes/index.tsx
 import { hello_from_gleam } from "$gleam/main.mjs";
 ```
 
