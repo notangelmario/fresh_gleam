@@ -4,7 +4,7 @@ import { join } from "$std/path/join.ts";
 
 export const runGleamCompile = (cwd?: string) => {
 	const gleamBuild = new Deno.Command("gleam", {
-		args: ["build", "--target=javascript"],
+		args: ["build", "--target=javascript", "--no-print-progress"],
 		cwd: cwd ?? Deno.cwd(),
 	});
 

@@ -41,7 +41,7 @@ runtime = "deno"
 // deno.json
 {
 	"imports": {
-		"fresh_gleam": "https://deno.land/x/fresh_gleam@v0.1.2/mod.ts"
+		"fresh_gleam": "https://deno.land/x/fresh_gleam@v0.1.3/mod.ts"
 		// Other imports
 	}
 }
@@ -52,7 +52,7 @@ runtime = "deno"
 import { defineConfig } from "$fresh/server.ts";
 import { gleamPlugin } from "@notangelmario/fresh_gleam";
 // Or add it directly from the URL
-// import { gleamPlugin } from "jsr:@notangelmario/fresh_gleam@v0.1.2";
+// import { gleamPlugin } from "jsr:@notangelmario/fresh_gleam@v0.1.3";
 
 export default defineConfig({
 	plugins: [
