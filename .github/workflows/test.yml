@@ -17,12 +17,12 @@ jobs:
       - name: Setup Gleam
         uses: gleam-lang/setup-gleam@v1.0.1
         with:
-          gleam-version: 1.2.0
+          gleam-version: 1.5.0
 
       - name: Install Deno
         uses: denoland/setup-deno@v1
         with:
-          deno-version: v1.44.4
+          deno-version: v1.46.3
 
       - name: Run tests
         run: "deno task test"
